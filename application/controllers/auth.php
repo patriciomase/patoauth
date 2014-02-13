@@ -18,7 +18,7 @@ class Auth extends MY_Controller {
 
 	public function login(){
 
-		$this->load->view('auth/login_form');
+		$this->load->view('auth/login_form', $this->_data);
 	}
 
 }
