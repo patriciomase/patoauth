@@ -23,5 +23,5 @@ class MY_Controller extends CI_Controller {
 		if(! $this->patoauth->is_logged_in())
 			redirect(site_url('auth/login'));
 	}
-	
+
 }
