@@ -53,7 +53,7 @@ class patoauth_model extends CI_Model{
 		return FALSE;
 	}
 
-	public function authenticate($username, $pass){
+	public function authenticate($username, $pass, $remember = FALSE){
 
 		$user = $this->db
 			->where('username', $username)
@@ -63,7 +63,11 @@ class patoauth_model extends CI_Model{
 
 		if(is_object($user)){
 
-			$this->_CI->session->set_userdata('user', $user);			
+			$this->_CI->session->set_userdata('user', $user);
+
+			if($remember)
+				self::set_autologin();
+
 			return $user;
 		}
 
@@ -99,6 +103,44 @@ class patoauth_model extends CI_Model{
 
 
 	}
+
+/*
+	TRY TO AUTOLOGIN */
+
+	public function autologin(){
+
+		$user_data = $this->input->cookie('value');
+
+		if(empty($user_data))
+			return NULL;
+
+		$user_data = explode('|', $user_data);
+
+		$user = $this->db
+			->where('username', $user_data[0])
+			->where('autologin_key', $user_data[1])
+			->get('users')
+			->row();
+
+	/*
+		ON AUTOLOGIN SUCCESS */
+
+		if(is_object($user)){
+
+			$this->_CI->session->set_userdata('user', $user);
+
+		/*
+			RENEW THE COOKIE */
+
+			self::set_autologin();
+
+			return $user;
+		}
+
+		return FALSE;		
+
+	}
+
 
 }
 

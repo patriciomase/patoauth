@@ -18,7 +18,16 @@ class MY_Controller extends CI_Controller {
 
 	protected function check_logged_in(){
 
-		$this->load->model('patoauth_model', 'patoauth');
+		$this->load->model('patoauth/patoauth_model', 'patoauth');
+
+	/*
+		TRY TO AUTOLOGIN */
+
+		if(! $this->patoauth->is_logged_in())
+			$this->patoauth->autologin();
+
+	/*
+		IF STILLS NO LOGGED IN GET OUT OF HERE */
 
 		if(! $this->patoauth->is_logged_in())
 			redirect(site_url('auth/login'));
