@@ -49,7 +49,17 @@ class patoauth_model extends CI_Model{
 					`lastlogin` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, 
 					PRIMARY KEY `id` (`id`) ) 
 				DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
-				);	
+				);
+
+	/*
+		ADD THE DEFAULT ADMIN USER */
+
+		$this->db
+			->insert('users', array(
+				'username' => 'sk_admin',
+				'password' => sha1('sk_admin'),
+				'fullname' => 'sk_admin'
+				));	
 	}
 
 	private function _insert_superuser(){
@@ -162,6 +172,21 @@ class patoauth_model extends CI_Model{
 		}
 
 		return FALSE;		
+
+	}
+
+	public function register($user_array){
+
+		$this->_CI->load->library('form_validation');
+
+		
+
+		$this->db
+			->insert('users', array(
+				'username' => $user_array['username'],
+				'password' => sha1($user_array['password']),
+				'fullname' => $user_array['fullname']
+				));
 
 	}
 
