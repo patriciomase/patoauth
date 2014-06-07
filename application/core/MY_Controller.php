@@ -2,15 +2,28 @@
 
 class MY_Controller extends CI_Controller {
 
+	protected $_data = array();
+
 	public function __construct(){
 
 		parent::__construct();
+
+		//$this->output->enable_profiler(TRUE);
 
 	/*
 		CHECK LOGGED IN IN ALL CONTROLLERS BUT AUTH */
 
 		if(get_class($this) != 'Auth')
 			$this->check_logged_in();
+
+		$this->_data['styles'] = array();
+		$this->_data['scripts'] = array();
+
+		$this->_data['styles'][] = base_url('assets/css/bootstrap.min.css');
+
+		$this->_data['scripts'][] = base_url('assets/vendor/jquery-1.11.1.min.js');
+		$this->_data['scripts'][] = base_url('assets/vendor/bootstrap.min.js');
+		$this->_data['scripts'][] = base_url('assets/js/common.js');
 	}
 
 /*

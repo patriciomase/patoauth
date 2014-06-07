@@ -13,41 +13,42 @@
   <?php endforeach?>
   
   <script>
-    var site_url = "<?php echo site_url()?>";
+    var site_url = "<?php echo site_url()?>/";
   </script>
 
   </head>
 
   <body>
-
-    <form class="form-horizontal well login-form col-md-6 col-md-offset-3" role="form">
-      <div class="form-group">
-        <label for="username" class="col-sm-2 control-label">Username</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">Password</label>
-        <div class="col-sm-10">
-          <input type="password" class="form-control" id="password" placeholder="Password" name="password">
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="remember" value="1" id="remember">Remember me
-            </label>
+    <div class="content">
+      <form class="form-horizontal well login-form col-md-4 col-md-offset-3" role="form">
+        <div class="form-group">
+          <label for="username" class="col-sm-2 control-label">Username</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username">
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default" id="sign-in">Sign in</button>
+        <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">Password</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+          </div>
         </div>
-      </div>
-    </form>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="remember" value="1" id="remember">Remember me
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" id="sign-in">Sign in</button>
+          </div>
+        </div>
+      </form>
+    </div>
 
 
   <?php foreach($scripts as $script):?>

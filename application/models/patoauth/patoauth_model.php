@@ -24,8 +24,17 @@ class patoauth_model extends CI_Model{
 	/*
 		CHECK FOR DATABASE TABLE, IF NOT EXISTS THE TABLE WILL BE CREATED */
 
-		if(! $this->db->table_exists('users'))
+		if(! $this->db->table_exists('users')){
+
 			$this->_create_database_table();
+			
+		/*
+			IF THERE IS NOT USERS INTO THE DATABASE CREATE A DEFAULT ADMIN USER */
+
+			if(! $this->db->count_all('users'));
+				$this->_insert_superuser();
+		}
+
 	}
 
 	private function _create_database_table(){
@@ -41,6 +50,16 @@ class patoauth_model extends CI_Model{
 					PRIMARY KEY `id` (`id`) ) 
 				DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
 				);	
+	}
+
+	private function _insert_superuser(){
+
+		$this->db
+			->insert('users', array(
+				'username'	=> 'admin',
+				'password'	=> sha1('admin'),
+				'fullname'	=> 'admin'
+				));
 	}
 
 	public function is_logged_in(){
@@ -72,6 +91,11 @@ class patoauth_model extends CI_Model{
 		}
 
 		return FALSE;
+	}
+
+	public function deauthenticate(){
+
+		$this->_CI->session->sess_destroy();
 	}
 
 	public function set_autologin($user){

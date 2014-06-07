@@ -1,6 +1,7 @@
 $('#sign-in').click(function(e){
 
 	e.preventDefault();
+	e.stopPropagation();
 
 	$.ajax({
 	  type: "POST",
@@ -13,8 +14,9 @@ $('#sign-in').click(function(e){
 	})
 	  .done(function(response) {
 
-	    if(response.result == true){
-	    	window.location = site_url;
-	    }
+	    $('body').children('.content').fadeOut(500, function(){
+
+	    	$('body').html('<div class="content">welcome! do something here. <a href="' + site_url + 'auth/logout">logout</a></div>');
+	    });
 	});
 });
